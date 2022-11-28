@@ -1,25 +1,58 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { CssBaseline, Theme } from '@mui/material';
+import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-dom';
+import "@fontsource/inconsolata";
+import Home from './containers/Home';
+
+const theme: Theme = createTheme({
+  spacing: (value: string | number) => value,
+  palette: {
+    primary: {
+      main: '#2E2E2E',
+    },
+    secondary: {
+      main: '#dbdad5',
+      dark: '#807f7c'
+    },
+    background: {
+      default: '#1a1a1a',
+    }
+  },
+  typography: {
+    allVariants: {
+      color: '#dbdad5'
+    },
+    fontFamily: [
+      'Inconsolata',
+    ].join(","),
+    h1: {
+      fontSize: 50,
+    },
+    h2: {
+      fontSize: 40,
+    },
+    h3: {
+      fontSize: 30,
+    },
+    h4: {
+      fontSize: 20,
+    }
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<Home />} />
+          <Route path='/projects' element={<Home />} />
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
 }
 
