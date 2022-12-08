@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/personal-website/static/css/main.a3c6bb64.css",
-    "main.js": "/personal-website/static/js/main.ae2fe3b0.js",
+    "main.js": "/personal-website/static/js/main.01bdcf81.js",
     "static/js/787.5809834d.chunk.js": "/personal-website/static/js/787.5809834d.chunk.js",
     "static/media/what2Do.png": "/personal-website/static/media/what2Do.d54baebb2eb50d5c2f5c.png",
     "static/media/doorvest.jpg": "/personal-website/static/media/doorvest.2f60b0b1178cb326e99e.jpg",
@@ -16,11 +16,11 @@
     "static/media/inconsolata-vietnamese-400-normal.woff2": "/personal-website/static/media/inconsolata-vietnamese-400-normal.9577afbe03dcb6ba51df.woff2",
     "index.html": "/personal-website/index.html",
     "main.a3c6bb64.css.map": "/personal-website/static/css/main.a3c6bb64.css.map",
-    "main.ae2fe3b0.js.map": "/personal-website/static/js/main.ae2fe3b0.js.map",
+    "main.01bdcf81.js.map": "/personal-website/static/js/main.01bdcf81.js.map",
     "787.5809834d.chunk.js.map": "/personal-website/static/js/787.5809834d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a3c6bb64.css",
-    "static/js/main.ae2fe3b0.js"
+    "static/js/main.01bdcf81.js"
   ]
 }
