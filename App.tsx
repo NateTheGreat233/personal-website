@@ -4,6 +4,8 @@ import { CssBaseline, Theme } from '@mui/material';
 import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-dom';
 import "@fontsource/inconsolata";
 import Home from './containers/Home';
+import About from './containers/About';
+import Experience from './containers/Experience';
 
 const theme: Theme = createTheme({
   spacing: (value: string | number) => value,
@@ -48,8 +50,8 @@ function App() {
       <Router>
         <Switch>
           <Route path='/' element={<Home />} />
-          <Route path='/about' element={<Home />} />
-          <Route path='/projects' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/experience' element={<Experience />} />
         </Switch>
       </Router>
     </ThemeProvider>

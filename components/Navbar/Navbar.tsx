@@ -1,88 +1,93 @@
-import { Box, Button, Collapse, Typography, useTheme } from "@mui/material";
+import { Box, Button, Collapse, Divider, Typography, useTheme } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Logo from '../../assets/art/logo.png';
 
 const Navbar = (): JSX.Element => {
 
     const theme = useTheme();
-    const [aboutHover, setAboutHover] = useState<boolean>(false);
-    const [experienceHover, setExperienceHover] = useState<boolean>(false);
-    const [projectsHover, setProjectsHover] = useState<boolean>(false);
+    const navigate = useNavigate();
+
+    // 0: about
+    // 1: experience
+    const [currentHover, setCurrentHover] = useState<number>(-1);
 
     const horizontalPadding: number = 35;
     const verticalPadding: number = 20;
     const collapsedSize: number = 32;
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', mt: verticalPadding, mb: verticalPadding}}>
-            <Collapse 
-                in={!experienceHover && !projectsHover} 
-                sx={{ mr: horizontalPadding }}
-                collapsedSize={collapsedSize}
-            >
-                <Button 
-                    onMouseOver={() => setAboutHover(true)}
-                    onMouseLeave={() => setAboutHover(false)}
-                    variant={'text'} 
-                    href={'/about'} disableRipple={true} 
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ':hover': { cursor: 'default' } }}>
+            <Box sx={{ display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'space-between', pt: verticalPadding, pb: verticalPadding, pl: horizontalPadding, pr: horizontalPadding, zIndex: 1}}>
+                <Box 
+                    component="img"
+                    alt={`Logo`}
+                    src={Logo}
                     sx={{ 
-                        padding: 0,
-                        textTransform: 'none', 
-                        fontSize: theme.typography.h3.fontSize,
-                        color: experienceHover || projectsHover ? theme.palette.secondary.dark : theme.palette.secondary.main,
+                        width: 80, 
+                        height: 80, 
+                        transition: 'all 1s ease-in-out',
+                        userSelect: 'none',
                         ':hover': {
-                            color: 'white'
+                            cursor: 'pointer',
+                            transition: 'all 0.5s ease-in-out',
+                            transform: `rotate(${10}deg)`,
                         }
                     }}
-                >
-                    about
-                </Button>
-            </Collapse>               
-            <Collapse 
-                in={!aboutHover && !projectsHover} 
-                sx={{ mr: horizontalPadding }}
-                collapsedSize={collapsedSize}
-            >
-                <Button 
-                    onMouseOver={() => setExperienceHover(true)}
-                    onMouseLeave={() => setExperienceHover(false)}
-                    variant={'text'} 
-                    href={'/about'} disableRipple={true} 
-                    sx={{ 
-                        padding: 0,
-                        textTransform: 'none', 
-                        fontSize: theme.typography.h3.fontSize,
-                        color: aboutHover || projectsHover ? theme.palette.secondary.dark : theme.palette.secondary.main,
-                        ':hover': {
-                            color: 'white'
-                        }
+                    onClick={() => {
+                        navigate('/');
                     }}
-                >
-                    experience
-                </Button>
-            </Collapse>
-            <Collapse 
-                in={!aboutHover && !experienceHover} 
-                sx={{ mr: horizontalPadding }}
-                collapsedSize={collapsedSize}
-            >
-                <Button 
-                    onMouseOver={() => setProjectsHover(true)}
-                    onMouseLeave={() => setProjectsHover(false)}
-                    variant={'text'} 
-                    href={'/about'} disableRipple={true} 
-                    sx={{ 
-                        padding: 0,
-                        textTransform: 'none', 
-                        fontSize: theme.typography.h3.fontSize,
-                        color: experienceHover || aboutHover ? theme.palette.secondary.dark : theme.palette.secondary.main,
-                        ':hover': {
-                            color: 'white'
-                        }
-                    }}
-                >
-                    projects
-                </Button>
-            </Collapse>
+                />
+                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                    <Collapse 
+                        in={currentHover < 1} 
+                        sx={{ mr: horizontalPadding }}
+                        collapsedSize={collapsedSize}
+                    >
+                        <Button 
+                            onMouseOver={() => setCurrentHover(0)}
+                            onMouseLeave={() => setCurrentHover(-1)}
+                            variant={'text'} 
+                            href={'/about'} disableRipple={true} 
+                            sx={{ 
+                                padding: 0,
+                                textTransform: 'none', 
+                                fontSize: theme.typography.h3.fontSize,
+                                color: currentHover > 0 ? theme.palette.secondary.dark : theme.palette.secondary.main,
+                                ':hover': {
+                                    color: 'white'
+                                }
+                            }}
+                        >
+                            about
+                        </Button>
+                    </Collapse>               
+                    <Collapse 
+                        in={currentHover == -1 || currentHover == 1} 
+                        sx={{ mr: horizontalPadding }}
+                        collapsedSize={collapsedSize}
+                    >
+                        <Button 
+                            onMouseOver={() => setCurrentHover(1)}
+                            onMouseLeave={() => setCurrentHover(-1)}
+                            variant={'text'} 
+                            href={'/experience'} disableRipple={true} 
+                            sx={{ 
+                                padding: 0,
+                                textTransform: 'none', 
+                                fontSize: theme.typography.h3.fontSize,
+                                color: currentHover == 0 || currentHover > 1 ? theme.palette.secondary.dark : theme.palette.secondary.main,
+                                ':hover': {
+                                    color: 'white'
+                                }
+                            }}
+                        >
+                            experience
+                        </Button>
+                    </Collapse>
+                </Box>
+            </Box>
+            <Divider sx={{ width: '95%', borderColor: theme.palette.primary.main, borderWidth: 1, opacity: 0.3 }}/>
         </Box>
     )
 }
