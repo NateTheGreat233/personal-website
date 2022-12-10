@@ -39,7 +39,13 @@ const theme: Theme = createTheme({
     },
     h4: {
       fontSize: 20,
-    }
+    },
+    h5: {
+      fontSize: 18,
+    },
+    h6: {
+      fontSize: 16,
+    },
   },
 });
 
@@ -49,9 +55,9 @@ function App() {
       <CssBaseline />
       <Router>
         <Switch>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/experience' element={<Experience />} />
+          <Route path={'/'} element={<Home />} />
+          <Route path={'/about'} element={<About />} />
+          <Route path={'/experience'} element={<Experience />} />
         </Switch>
       </Router>
     </ThemeProvider>

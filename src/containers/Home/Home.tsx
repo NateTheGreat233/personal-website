@@ -109,12 +109,12 @@ const Home = (): JSX.Element => {
                     >
                         see what I'm up to
                     </Button>
-                    {skills.map((skill, ix) => {
+                    {/* {skills.map((skill, ix) => {
                         return createBlocks(skill, ix)
-                    })}
+                    })} */}
                 </Box>
             </Box>
-            <ContactButton />
+            <ContactButton altColor={false}/>
         </Box>
     )
 }

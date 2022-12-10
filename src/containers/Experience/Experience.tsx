@@ -1,4 +1,4 @@
-import { Box, Divider, Link, Slide, Typography, useTheme } from "@mui/material";
+import { Box, Divider, Link, Slide, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Navbar from "../../components/Navbar";
 import SnailTrail from "../../assets/photos/snailTrail.jpg";
 import What2Do from "../../assets/photos/what2Do.png";
@@ -13,7 +13,7 @@ import ContactButton from "../../components/ContactButton.tsx";
 interface IExperience {
     title: string,
     image: string,
-    imageWidth?: number,
+    aspectRatio: number,
     about: string,
     link?: string,
     altLink?: {
@@ -25,11 +25,15 @@ interface IExperience {
 
 const Experience = (): JSX.Element => {
 
+    const theme = useTheme();
+    const isDesktop: boolean = useMediaQuery(theme.breakpoints.up('md'));
+    const maxheight: number = 200;
+
     const experiences: IExperience[] = [
         {
             title: 'Software Engineer @ Roblox',
             image: Roblox,
-            imageWidth: 200,
+            aspectRatio: 1,
             about:
                 "I'll be working close to home this summer at Roblox! I will be working as a " +
                 "software engineer. Not quite sure which team I'll be working with but looking " + 
@@ -38,6 +42,7 @@ const Experience = (): JSX.Element => {
         {
             title: 'Web Dev @ Doorvest',
             image: Doorvest,
+            aspectRatio: 1.25,
             about: 
                 "The summer after my freshman year of college I had the opportunity to intern at a fintech startup " +
                 "called Doorvest. It was a great experience where I learned a ton about web development, and what it " +
@@ -48,6 +53,7 @@ const Experience = (): JSX.Element => {
         {
             title: 'Snail Trail',
             image: SnailTrail,
+            aspectRatio: 685/426,
             about: 
                 "Snail trail is a puzzle game I made the summer going into college. The goal of the game is to " + 
                 "reach the flags by moving two snails across a grid. Along the way, there are various obstacles that " +
@@ -63,7 +69,7 @@ const Experience = (): JSX.Element => {
         {
             title: 'Undergraduate Researcher',
             image: Hololens,
-            imageWidth: 300,
+            aspectRatio: 1170/1236,
             about: 
                 "Worked on a research project to help people who are hearing-impaired communicate " +
                 "in a more natural way. The goal was to use the Microsoft Hololens to create " +
@@ -74,7 +80,7 @@ const Experience = (): JSX.Element => {
         {
             title: 'What 2 do?',
             image: What2Do,
-            imageWidth: 500,
+            aspectRatio: 2870/1460,
             about: 
                 "What2do is a website I made shortly after taking a web dev class where it helps you " +
                 "pick what you want to eat/listen to etc. It's actually not done, but maybe " +
@@ -84,7 +90,6 @@ const Experience = (): JSX.Element => {
         },
     ];
 
-    const theme = useTheme();
     const [shouldAnimate, setShouldAnimate] = useState<boolean>(false); 
     const linkColor: string = '#689bed';
 
@@ -105,10 +110,14 @@ const Experience = (): JSX.Element => {
                                 display: 'flex', 
                                 flexDirection: 'column', 
                                 alignItems: ix % 2 == 0 ? 'flex-start' : 'flex-end',
+                                justifyContent: 'space-between',
                                 backgroundColor: theme.palette.primary.main ,
                                 borderRadius: 10,
-                                p: 20,
-                                m: 20
+                                pl: 30,
+                                pr: 30,
+                                pb: 30,
+                                m: 10,
+                                mb: 30
                             }} 
                             key={`${project.title}-${ix}`}
                         >
@@ -117,20 +126,19 @@ const Experience = (): JSX.Element => {
                                 strings={[
                                     project.title,
                                 ]}
-                                typeSpeed={100}
+                                typeSpeed={75}
                                 loop={false}
                             />
                             <Box sx={{ display: 'flex', flexDirection: ix % 2 == 0 ? 'row' : 'row-reverse', }}>
-                                <Box 
-                                    component="img"
-                                    alt={`Image of ${project.title}`}
+                                <img 
                                     src={project.image}
-                                    sx={{ width: project.imageWidth ?? 300}}
-                                />
+                                    style={{ aspectRatio: project.aspectRatio, width: isDesktop ? 300 : 150, height: (isDesktop ? 300 : 150)/project.aspectRatio}}
+                                >
+                                </img>
                                 <Slide direction={ix % 2 == 0 ? "left" : "right"} in={shouldAnimate} mountOnEnter unmountOnExit style={{}}>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', ml: 20}}>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', ml: 20, mr: 20}}>
                                             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                                                <Typography variant={"h4"}>{project.about}</Typography>  
+                                                <Typography variant={isDesktop ? "h4" : "h6"}>{project.about}</Typography>  
                                                 {project.link &&    
                                                     <Link href={project.link} target="_blank">
                                                         <Typography sx={{ color: linkColor }}>Click here to check it out!</Typography>
@@ -148,12 +156,11 @@ const Experience = (): JSX.Element => {
                                     </Box>         
                                 </Slide>
                             </Box>
-                            <Divider sx={{ width: '100%', borderColor: theme.palette.primary.main, borderWidth: 2, mt: 40, mb: 20 }}/>
                         </Box>
                     )
                 })}
             </Box>
-            <ContactButton />
+            <ContactButton altColor={true}/>
         </Box>
     )
 }

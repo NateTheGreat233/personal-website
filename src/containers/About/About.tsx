@@ -1,4 +1,4 @@
-import { Avatar, Box, Slide, Typography, useTheme } from "@mui/material";
+import { Avatar, Box, Slide, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Navbar from "../../components/Navbar";
 import Greece from "../../assets/people/greece.png";
 import Soccer from "../../assets/people/soccer.jpg";
@@ -10,10 +10,11 @@ const About = (): JSX.Element => {
 
     const [typingDone, setTypingDone] = useState<boolean>(false);
     const [secondShouldCome, setSecondShouldCome] = useState<boolean>(false);
-
-    const imageSize: number = 200;
-    const margin: number = 40;
     const theme = useTheme();
+    const isDesktop: boolean = useMediaQuery(theme.breakpoints.up('md'));
+
+    const imageSize: number = isDesktop ? 200 : 100;
+    const margin: number = 40;
 
 
     return (
@@ -34,7 +35,7 @@ const About = (): JSX.Element => {
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'column'}}>
                     <Typed
-                        style={{ fontSize: theme.typography.h1.fontSize, userSelect: 'none'}}
+                        style={{ fontSize: isDesktop ? theme.typography.h1.fontSize : theme.typography.h3.fontSize, userSelect: 'none'}}
                         strings={[
                             "Hi, I'm Nathan.",
                         ]}
@@ -59,7 +60,7 @@ const About = (): JSX.Element => {
                             </Typography>
                     </Slide>
                     <Slide direction="up" in={secondShouldCome} mountOnEnter unmountOnExit>
-                        <Typography variant={'h4'} sx={{ mt: margin/2 }}>
+                        <Typography variant={'h4'} sx={{ mt: margin/2, pb: 30 }}>
                             {
                                 `Growing up I loved playing video games; In fact, I still do. So when I ` +
                                 `learned how to code, naturally I wanted to make my own games. I started making ` +
@@ -73,7 +74,7 @@ const About = (): JSX.Element => {
                     </Slide>
                 </Box>
             </Box>
-            <ContactButton />
+            <ContactButton altColor={false} />
         </Box>
     )
 }
