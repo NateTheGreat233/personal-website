@@ -9,6 +9,7 @@ import Typed from 'react-typed';
 import { useState } from "react";
 import { useEffect } from "react";
 import ContactButton from "../../components/ContactButton.tsx";
+import Drawer from "../../components/Drawer";
 
 interface IExperience {
     title: string,
@@ -101,43 +102,45 @@ const Experience = (): JSX.Element => {
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <Navbar />
+            {isDesktop ? <Navbar /> : <Drawer />}
             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, margin: 20 }}>
                 {experiences.map((project: IExperience, ix: number) => {
+                    const spacing: number = isDesktop ? 30 : 20;
+
                     return (
                         <Box 
                             sx={{ 
                                 display: 'flex', 
                                 flexDirection: 'column', 
-                                alignItems: ix % 2 == 0 ? 'flex-start' : 'flex-end',
+                                alignItems: isDesktop ? ix % 2 == 0 ? 'flex-start' : 'flex-end' : 'center',
                                 justifyContent: 'space-between',
                                 backgroundColor: theme.palette.primary.main ,
                                 borderRadius: 10,
-                                pl: 30,
-                                pr: 30,
-                                pb: 30,
-                                m: 10,
-                                mb: 30
+                                pl: spacing,
+                                pr: spacing,
+                                pb: spacing,
+                                m: spacing/3,
+                                mb: spacing
                             }} 
                             key={`${project.title}-${ix}`}
                         >
                             <Typed
-                                style={{ fontSize: theme.typography.h1.fontSize, userSelect: 'none'}}
+                                style={{ fontSize: isDesktop ? theme.typography.h1.fontSize : theme.typography.h4.fontSize, userSelect: 'none'}}
                                 strings={[
                                     project.title,
                                 ]}
                                 typeSpeed={75}
                                 loop={false}
                             />
-                            <Box sx={{ display: 'flex', flexDirection: ix % 2 == 0 ? 'row' : 'row-reverse', }}>
+                            <Box sx={{ display: 'flex', flexDirection: isDesktop ? ix % 2 == 0 ? 'row' : 'row-reverse' : 'column', alignItems: 'center'}}>
                                 <img 
                                     src={project.image}
-                                    style={{ aspectRatio: project.aspectRatio, width: isDesktop ? 300 : 150, height: (isDesktop ? 300 : 150)/project.aspectRatio}}
+                                    style={{ aspectRatio: project.aspectRatio, width: isDesktop ? 250 : 100, height: (isDesktop ? 250 : 100)/project.aspectRatio, margin: isDesktop ? 'inherit' : 10}}
                                 >
                                 </img>
                                 <Slide direction={ix % 2 == 0 ? "left" : "right"} in={shouldAnimate} mountOnEnter unmountOnExit style={{}}>
-                                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', ml: 20, mr: 20}}>
-                                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', ml: 20, mr: 20, height: '100%'}}>
+                                            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                                 <Typography variant={isDesktop ? "h4" : "h6"}>{project.about}</Typography>  
                                                 {project.link &&    
                                                     <Link href={project.link} target="_blank">
