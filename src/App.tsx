@@ -55,9 +55,9 @@ function App() {
       <CssBaseline />
       <Router>
         <Switch>
-          <Route path={'/'} element={<Home />} />
-          <Route path={'/about'} element={<About />} />
-          <Route path={'/experience'} element={<Experience />} />
+          <Route path={'/personal-website'} element={<Home />} />
+          <Route path={'/personal-website/about'} element={<About />} />
+          <Route path={'/personal-website/experience'} element={<Experience />} />
         </Switch>
       </Router>
     </ThemeProvider>
