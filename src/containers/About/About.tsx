@@ -67,11 +67,14 @@ const About = (): JSX.Element => {
                                     {
                                         `Growing up I loved playing video games; In fact, I still do. So when I ` +
                                         `learned how to code, naturally I wanted to make my own games. I started making ` +
-                                        `small games (like pong) in Java, and eventually began using game engines such as Unity. ` +
+                                        `small games (like pong) in Java, and eventually began using game engines such as Unity to make ` +
+                                        `more complicated projects. ` +
                                         `I think the experimentation with making games has allowed me to grow exponentially as a developer, ` +
-                                        `and as I grew older, I eventually moved on from just making games. I got into web development, ` +
-                                        `which is what I was doing in my previous job. Most recently, I've been working on a mobile app which ` +
-                                        `has been a cool learning experience as well.`
+                                        `and as I grew older, I eventually moved on from just making games. After taking a web development class, I realized ` +
+                                        `I really enjoy making cool, interactive websites. My most recent job working as a web developer has allowed me to ` +
+                                        `learn and continue to grow that skillset. However, ` +
+                                        `most recently I've been working on a mobile app which ` +
+                                        `has been a cool learning experience as well. Hopefully it'll be finished by the summer!`
                                     }
                                 </Typography>
                             </Slide>

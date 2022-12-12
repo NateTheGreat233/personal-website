@@ -47,7 +47,8 @@ const Experience = (): JSX.Element => {
             about: 
                 "The summer after my freshman year of college I had the opportunity to intern at a fintech startup " +
                 "called Doorvest. It was a great experience where I learned a ton about web development, and what it " +
-                "looks like to work in a more professional setting with a team."
+                "looks like to work in a more professional setting with a team. It also gave me the opportunity to live " +
+                "in San Fransisco with my friends which I really enjoyed!"
             ,
             link: 'https://doorvest.com/',
         },
@@ -58,7 +59,8 @@ const Experience = (): JSX.Element => {
             about: 
                 "Snail trail is a puzzle game I made the summer going into college. The goal of the game is to " + 
                 "reach the flags by moving two snails across a grid. Along the way, there are various obstacles that " +
-                "make it quite challenging."
+                "make it quite challenging. It was also my first Unity game that I completed start to finish; All my previous projects " +
+                "wouldn't make it to a production ready state."
             ,
             link: "https://armorgames.com/snail-trail-game/19222",
             altLink: {
@@ -87,7 +89,6 @@ const Experience = (): JSX.Element => {
                 "pick what you want to eat/listen to etc. It's actually not done, but maybe " +
                 "at some point I can find some time to finish it!"
             ,
-            link: "http://what2doo.herokuapp.com/food",
         },
     ];
 
