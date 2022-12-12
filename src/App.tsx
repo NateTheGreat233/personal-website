@@ -1,7 +1,7 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Theme } from '@mui/material';
-import { HashRouter as Router, Routes as Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-dom';
 import "@fontsource/inconsolata";
 import Home from './containers/Home';
 import About from './containers/About';
