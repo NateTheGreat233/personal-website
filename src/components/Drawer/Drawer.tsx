@@ -5,10 +5,12 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useNavigate } from "react-router-dom";
 
 const Drawer = (): JSX.Element => {
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
     const theme = useTheme();
+    const navigate = useNavigate();
 
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',
@@ -21,7 +23,7 @@ const Drawer = (): JSX.Element => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <img src={Logo} style={{ width: 75, height: 75, marginLeft: 10, marginTop: 10}} />
+            <img src={Logo} onClick={() => {navigate('/')}} style={{ width: 75, height: 75, marginLeft: 10, marginTop: 10}} />
             <IconButton
                 color="inherit"
                 aria-label="open drawer"

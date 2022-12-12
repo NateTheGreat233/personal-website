@@ -27,9 +27,9 @@ const Home = (): JSX.Element => {
             flexDirection={'column'} 
             sx={{ height: '100vh'}}
         >
-            <Box sx={{ height: '100vh'}}>
+            <Box sx={{ display: 'flex', height: '100%', flexDirection: 'column'}}>
                 {isDesktop ? <Navbar /> : <Drawer />}
-                <Box display={'flex'} flexGrow={1} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} sx={{ height: '100%'}}>
+                <Box display={'flex'} flexGrow={1} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
                     <Box sx={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', mb: '10%' }}>
                         <Typed
                             ref={typedRef}
