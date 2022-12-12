@@ -1,7 +1,6 @@
 import { Box, Link, Modal, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Fab } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const ContactButton = ({altColor}: {altColor: boolean}): JSX.Element => {
 
