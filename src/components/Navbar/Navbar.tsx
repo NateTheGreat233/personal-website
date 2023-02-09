@@ -10,6 +10,7 @@ const Navbar = (): JSX.Element => {
 
     // 0: about
     // 1: experience
+    // 2: wicked!
     const [currentHover, setCurrentHover] = useState<number>(-1);
 
     const horizontalPadding: number = 35;
@@ -83,6 +84,29 @@ const Navbar = (): JSX.Element => {
                             }}
                         >
                             experience
+                        </Button>
+                    </Collapse>
+                    <Collapse 
+                        in={currentHover == -1 || currentHover == 2} 
+                        sx={{ mr: horizontalPadding }}
+                        collapsedSize={collapsedSize}
+                    >
+                        <Button 
+                            onMouseOver={() => setCurrentHover(2)}
+                            onMouseLeave={() => setCurrentHover(-1)}
+                            variant={'text'} 
+                            href={'/wicked'} disableRipple={true} 
+                            sx={{ 
+                                padding: 0,
+                                textTransform: 'none', 
+                                fontSize: theme.typography.h3.fontSize,
+                                color: currentHover == 0 || currentHover > 1 ? theme.palette.secondary.dark : theme.palette.secondary.main,
+                                ':hover': {
+                                    color: 'white'
+                                }
+                            }}
+                        >
+                            wicked
                         </Button>
                     </Collapse>
                 </Box>

@@ -6,6 +6,7 @@ import "@fontsource/inconsolata";
 import Home from './containers/Home';
 import About from './containers/About';
 import Experience from './containers/Experience';
+import Wicked from './containers/Wicked';
 
 const theme: Theme = createTheme({
   spacing: (value: string | number) => value,
@@ -55,9 +56,10 @@ function App() {
       <CssBaseline />
       <Router>
         <Switch>
-          <Route path={'/personal-website'} element={<Home />} />
-          <Route path={'/personal-website/about'} element={<About />} />
-          <Route path={'/personal-website/experience'} element={<Experience />} />
+          <Route path={'/'} element={<Home />} />
+          <Route path={'/about'} element={<About />} />
+          <Route path={'/experience'} element={<Experience />} />
+          <Route path={'/wicked'} element={<Wicked />} />
         </Switch>
       </Router>
     </ThemeProvider>

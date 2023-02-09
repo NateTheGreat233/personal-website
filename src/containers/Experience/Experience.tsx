@@ -5,6 +5,7 @@ import What2Do from "../../assets/photos/what2Do.png";
 import Doorvest from "../../assets/photos/doorvest.jpg";
 import Roblox from "../../assets/photos/roblox.jpg";
 import Hololens from "../../assets/photos/AR.jpeg";
+import Wicked from "../../assets/photos/Wickeds.png"
 import Typed from 'react-typed';
 import { useState } from "react";
 import { useEffect } from "react";
@@ -32,13 +33,22 @@ const Experience = (): JSX.Element => {
 
     const experiences: IExperience[] = [
         {
-            title: 'Software Engineer @ Roblox',
+            title: 'Software Engineering @ Roblox',
             image: Roblox,
             aspectRatio: 1,
             about:
                 "I'll be working close to home this summer at Roblox! I will be working as a " +
-                "software engineer. Not quite sure which team I'll be working with but looking " + 
+                "software engineer intern. Not quite sure which team I'll be working with but looking " + 
                 "forward to the opportunity!"
+        },
+        {
+            title: 'Wicked!',
+            image: Wicked,
+            aspectRatio: 1,
+            about:
+                "Just released version 1.0.0 of Wicked! on Apple's app store, go check it out! It's " +
+                "a game inspired by the popular party game, Cards Against Humanity. It was a really good " +
+                "first project into mobile development for me."
         },
         {
             title: 'Web Dev @ Doorvest',
@@ -126,7 +136,7 @@ const Experience = (): JSX.Element => {
                             key={`${project.title}-${ix}`}
                         >
                             <Typed
-                                style={{ fontSize: isDesktop ? theme.typography.h1.fontSize : theme.typography.h4.fontSize, userSelect: 'none'}}
+                                style={{ fontSize: isDesktop ? theme.typography.h1.fontSize : theme.typography.h4.fontSize, userSelect: 'none', textAlign: 'center'}}
                                 strings={[
                                     project.title,
                                 ]}

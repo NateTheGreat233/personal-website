@@ -54,7 +54,7 @@ const About = (): JSX.Element => {
                             <Slide direction="up" in={typingDone} mountOnEnter unmountOnExit>
                                 <Typography variant={isDesktop ? 'h4' : 'h6'} sx={{ mt: margin/2 }}>
                                     {
-                                        `I'm a 19 year old from Santa Clara, CA. More recently, I moved to the east coast for college ` +
+                                        `I'm a 20 year old from Santa Clara, CA. More recently, I moved to the east coast for college ` +
                                         `where I now study computer science and artificial intelligence at MIT. On campus, I'm part ` +
                                         `of the men's varsity soccer team, AR/VR MIT, and MIT Entrepreneurship Club. Outside the ` +
                                         `classroom, I enjoy working on side projects (such as this), spending time with friends and ` +
@@ -87,7 +87,7 @@ const About = (): JSX.Element => {
                     <Slide direction="up" in={typingDone} mountOnEnter unmountOnExit>
                         <Typography variant={isDesktop ? 'h4' : 'h6'}>
                             {
-                                `I'm a 19 year old from Santa Clara, CA. More recently, I moved to the east coast for college ` +
+                                `I'm a 20 from Santa Clara, CA. More recently, I moved to the east coast for college ` +
                                 `where I now study computer science and artificial intelligence at MIT. On campus, I'm part ` +
                                 `of the men's varsity soccer team, AR/VR MIT, and MIT Entrepreneurship Club. Outside the ` +
                                 `classroom, I enjoy working on side projects (such as this), spending time with friends and ` +

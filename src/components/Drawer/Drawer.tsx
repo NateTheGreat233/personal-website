@@ -95,6 +95,20 @@ const Drawer = (): JSX.Element => {
                     >
                         experience
                     </Button>
+                    <Button 
+                        variant={'text'} 
+                        href={'/wicked'} 
+                        disableRipple={true} 
+                        sx={{ 
+                            padding: 0,
+                            textTransform: 'none', 
+                            fontSize: theme.typography.h3.fontSize,
+                            color: 'white',
+                            mb: 5,
+                        }}
+                    >
+                        wicked
+                    </Button>
                 </Box>
             </D>
         </Box>
