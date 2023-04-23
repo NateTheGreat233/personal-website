@@ -7,6 +7,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fontsource/inconsolata": "^4.5.9",
+    "@fontsource/nunito": "^4.5.12",
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.15",
     "@mui/material": "^5.10.15",
@@ -22,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "react-spring": "^9.7.1",
     "react-typed": "^1.2.0",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0"
