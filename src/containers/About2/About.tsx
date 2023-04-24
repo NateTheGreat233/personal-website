@@ -1,13 +1,26 @@
-import { Box, SxProps, Theme, Typography } from "@mui/material";
+import { Box, SxProps, Theme, Typography, useMediaQuery } from "@mui/material";
 import { theme2 } from "../../App";
 import Navbar from "../../components/Navbar2";
 import ContactBar from "../../components/ContactBar";
 import { calculateAge, calculateStudentStatus } from "../../util/functions";
-import { ReactComponent as Arrow1 } from "../../assets/photos/aboutArrow1.svg";
-import { ReactComponent as Arrow2 } from "../../assets/photos/aboutArrow2.svg";
-import { ReactComponent as Arrow3 } from "../../assets/photos/aboutArrow3.svg";
+import Drawer from "../../components/Drawer2";
+import { useState } from "react";
+
+enum MobileSection {
+    ME,
+    EDUCATION,
+    PORTFOLIO
+}
+
+type TabInfo = {
+    text: string,
+    type: MobileSection
+}
 
 const About = (): JSX.Element => {
+
+    const isDesktop = useMediaQuery(theme2.breakpoints.up('md'));
+    const [mobileSelected, setMobileSelected] = useState<MobileSection>(MobileSection.ME);
 
     const styles = {
         container: {
@@ -26,13 +39,13 @@ const About = (): JSX.Element => {
         },
         contentContainer: {
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: isDesktop ? 'row' : 'column',
             flex: 1,
-            pl: 100,
-            pr: 100
+            pl: isDesktop ? 100 : 20,
+            pr: isDesktop ? 100 : 20,
         },
         title: {
-            fontSize: 75,
+            fontSize: isDesktop ? 75 : 40,
         },
         card: {
             display: 'flex',
@@ -55,26 +68,91 @@ const About = (): JSX.Element => {
         text: {
             fontSize: 15,
         },
-        arrow1: {
-            top: 200,
-            left: 'clamp(475px, 32vw, 100vw)',
-            width: 'clamp(350px, 25vw, 100vw)',
-            height: 100,
+        tabBox: {
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100%',
+            mb: 20,
         },
-        arrow2: {
-            top: 'clamp(385px, 50vh, 100vh)',
-            transform: 'rotate(-10deg)',
-            left: 'clamp(800px, 55vw, 100vw)',
-            width: 'clamp(350px, 25vw, 25vw)',
-            height: 'clamp(100px, 20vh, 150px)',
+        tabTextWrapper: {
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            '&:hover': {
+                cursor: 'pointer',
+            }
         },
-        arrow3: {
-            top: `clamp(400px, 67vh, 100vh)`,
-            left: 'clamp(400px, 27vw, 100vw)',
-            width: 'clamp(50px, 12vw, 25vw)',
-            height: 'clamp(100px, 20vh, 200px)',
+        tabText: {
+            fontSize: 16,
+        },
+        mobileTextBox: {
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'scroll',
         }
     };
+
+    const tabs: Array<TabInfo> = [
+        {
+            text: 'Me',
+            type: MobileSection.ME
+        },
+        {
+            text: 'Education',
+            type: MobileSection.EDUCATION
+        },
+        {
+            text: 'Portfolio',
+            type: MobileSection.PORTFOLIO
+        },
+    ];
+
+    const sectionMap: Map<MobileSection, JSX.Element> = new Map([
+        [MobileSection.ME, <Typography sx={styles.text}>{`I’m a ${calculateAge()}-year-old from the San Francisco Bay Area. Growing up as the child of two software engineers in the heart of Silicon Valley, I was surrounded by technology and developed a passion for programming at a young age. Aside from my interest in tech, I also have a love for sports. I played high-level youth soccer throughout my childhood, and I still play today for my college varsity team. Additionally, I’ve recently developed an interest in climbing and traveling, which I find to be great ways to challenge myself and explore the world around me.`}</Typography>],
+        [MobileSection.EDUCATION,  <Typography sx={styles.text}>{`I started my undergraduate studies in 2021, and I’m currently a ${calculateStudentStatus()}. I’ve been really enjoying my academic experience so far, and I’ve learned a lot in a short amount of time. In addition to my academic pursuits, I’m also an active member of the campus community. I'm a part of the men’s soccer team, which allows me to continue pursuing my passion for the sport. I’m also involved in VR/AR MIT and MIT Entrepreneurship Club, where I enjoy exploring innovative ideas and networking with other like-minded individuals. Outside of my extracurricular activities, I'm currently doing research with the MIT Media Lab on time-of-flight imaging. It's an exciting opportunity to work alongside talented researchers and contribute to cutting-edge advancements in the field. Overall, I’m grateful for the opportunities that MIT has provided me, and I'm excited to see what the future holds as I continue to grow and learn.`}</Typography>],
+        [MobileSection.PORTFOLIO, <Typography sx={styles.text}>{`I made this website to showcase some of the cool things I’ve been working on outside the classroom & work experiences. I’ve always enjoyed creating side projects, and here is a place I can put them all together! Thanks for checking out the website, and if you have any questions, ideas, or just want to get in touch please reach out!`}</Typography>]
+    ]);
+
+    if (!isDesktop) {
+        return (
+            <Box sx={styles.container}>
+                <Box sx={styles.innerContainer}>
+                    <Drawer />
+                    <Box sx={styles.contentContainer}>
+                        <Typography style={{...styles.title, marginBottom: 20, textAlign: 'center'}} fontStyle={'bold'}>About Me</Typography>
+                        <Box sx={styles.tabBox}>
+                            {
+                                tabs.map((tab: TabInfo, index: number) => {
+                                    return (
+                                        <Box 
+                                            key={index} 
+                                            sx={styles.tabTextWrapper}
+                                            onClick={() => {
+                                                setMobileSelected(tab.type);
+                                            }}
+                                        >
+                                            <Typography 
+                                                sx={{
+                                                    ...styles.tabText,
+                                                    color: tab.type === mobileSelected ? theme2.palette.secondary.main : 'default',
+                                                    textDecoration: tab.type === mobileSelected ? 'underline' : 'default',
+                                                }}
+                                            >{tab.text}</Typography>
+                                        </Box>
+                                    );
+                                })
+                            }
+                        </Box>
+                        <Box sx={styles.mobileTextBox}>
+                            {sectionMap.get(mobileSelected)}
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+        );
+    }
 
     return (
         <Box sx={styles.container}>
@@ -85,7 +163,7 @@ const About = (): JSX.Element => {
                     <Box sx={{...styles.card, top: 250,}}>
                         <Typography sx={styles.headerText}>{`Hey there! I’m Nathan.`}</Typography>
                         <Box sx={{overflowY: 'scroll'}}>
-                            <Typography sx={styles.text}>{`I’m a 20-year-old from the San Francisco Bay Area. Growing up as the child of two software engineers in the heart of Silicon Valley, I was surrounded by technology and developed a passion for programming at a young age. Aside from my interest in tech, I also have a love for sports. I played high-level youth soccer throughout my childhood, and I still play today for my college varsity team. Additionally, I’ve recently developed an interest in climbing and traveling, which I find to be great ways to challenge myself and explore the world around me.`}</Typography>
+                            <Typography sx={styles.text}>{`I’m a ${calculateAge()}-year-old from the San Francisco Bay Area. Growing up as the child of two software engineers in the heart of Silicon Valley, I was surrounded by technology and developed a passion for programming at a young age. Aside from my interest in tech, I also have a love for sports. I played high-level youth soccer throughout my childhood, and I still play today for my college varsity team. Additionally, I’ve recently developed an interest in climbing and traveling, which I find to be great ways to challenge myself and explore the world around me.`}</Typography>
                         </Box>
                     </Box>
                     <Box sx={{...styles.card, top: 200, left: `clamp(850px, 60vw, 100vw)`}}>

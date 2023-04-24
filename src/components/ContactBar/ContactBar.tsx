@@ -1,4 +1,5 @@
-import { Box, Link } from "@mui/material";
+import { Box, Link, useMediaQuery } from "@mui/material";
+import { theme2 } from "../../App";
 
 enum Media {
     GITHUB,

@@ -22,7 +22,8 @@ type ProjectDetails = {
     title: string,
     images: Array<any>,
     description: JSX.Element,
-    tags: Array<string>
+    tags: Array<string>,
+    landscape: boolean,
 }
 
 const ProjectPage = (): JSX.Element => {
@@ -60,7 +61,6 @@ const ProjectPage = (): JSX.Element => {
             flexDirection: 'row',
         },
         pictureContainer: {
-            flex: 1.1,
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-start',
@@ -125,6 +125,7 @@ const ProjectPage = (): JSX.Element => {
     const projectMap = new Map<Project, ProjectDetails>([
         [Project.SNAIL_TRAIL, {
             title: 'Snail Trail',
+            landscape: true,
             images: [
                 require('../../assets/photos/snailTrail.jpg'),
                 require('../../assets/gifs/snailTrailGameplay.gif')
@@ -150,6 +151,7 @@ const ProjectPage = (): JSX.Element => {
         }],
         [Project.TIME_TO_MEET, {
             title: 'Time To Meet',
+            landscape: true,
             images: [
                 require('../../assets/gifs/timeToMeet.gif'),
                 require('../../assets/photos/timeToMeet.png')
@@ -169,6 +171,7 @@ const ProjectPage = (): JSX.Element => {
         }],
         [Project.WICKED, {
             title: 'Wicked!',
+            landscape: false,
             images: [
                 require('../../assets/photos/wickedGame.PNG'),
                 require('../../assets/photos/wickedFriends.jpg'),
@@ -210,7 +213,7 @@ const ProjectPage = (): JSX.Element => {
                 <Box sx={styles.contentContainer}>
                     <Typography style={styles.title} fontStyle={'bold'}>{projectInfo?.title}</Typography>
                     <Box sx={styles.dataContainer}>
-                        <Box sx={styles.pictureContainer}>
+                        <Box sx={{...styles.pictureContainer, flex: projectInfo?.landscape ? 1.1 : 0.5}}>
                             <NavigateBeforeIcon 
                                 sx={{
                                     ...styles.arrow,

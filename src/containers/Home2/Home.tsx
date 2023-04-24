@@ -1,4 +1,4 @@
-import { Box, SxProps, Theme, Typography } from "@mui/material";
+import { Box, SxProps, Theme, Typography, useMediaQuery } from "@mui/material";
 import { theme2 } from "../../App";
 import Navbar from "../../components/Navbar2";
 import ContactBar from "../../components/ContactBar";
@@ -6,9 +6,12 @@ import { useEffect, useRef, useState } from "react";
 import { useSpring, animated, useTransition } from "react-spring";
 import CycleText from "../../components/CycleText";
 import Float from "../../components/Float";
+import Drawer from "../../components/Drawer2";
 
 const Home = (): JSX.Element => {
-    const imageScale = 0.75;
+    const isDesktop = useMediaQuery(theme2.breakpoints.up('md'));
+    const mobileImageShrink = 2;
+    const imageScale = isDesktop ? 0.75 : 0.75/mobileImageShrink;
 
     const styles = {
         container: {
@@ -17,7 +20,7 @@ const Home = (): JSX.Element => {
             height: '100vh',
             width: '100vw',
             backgroundColor: theme2.palette.background.default,
-            padding: 30,
+            padding: isDesktop ? 30 : 15,
         },
         innerContainer: {
             display: 'flex',
@@ -30,47 +33,45 @@ const Home = (): JSX.Element => {
             pt: '5%',
             pl: 20,
             flexDirection: 'column',
-            minWidth: 500,
+            minWidth: isDesktop ? 500 : 0,
         },
         contentContainer: {
             display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-around',
+            flexDirection: isDesktop ? 'row' : 'column',
+            justifyContent: isDesktop ? 'space-around' : 'flex-start',
+            alignItems: isDesktop ? 'default' : 'flex-start',
             flex: 1,
         },
         helloText: {
-            fontSize: 45,
+            fontSize: isDesktop ? 45 : 25,
         },
         nameText: {
-            fontSize: 100,
+            fontSize: isDesktop ? 100 : 50,
         },
         andText: {
-            fontSize: 20,
+            fontSize: isDesktop ? 20 : 15,
         },
         meText: {
-            fontSize: 50,
-            marginTop: 0,
-            marginRight: 0,
-            marginLeft: 0,
+            fontSize: isDesktop ? 50 : 35,
         },
         imageContainer: {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: 600,
-            pt: 20,
-            mr: 100,
+            width: isDesktop ? 600 : '100%',
+            pt: isDesktop ? 20 : 100,
+            mr: isDesktop ? 100 : 0,
         },
         image: {
-            position: 'absolute',
+            position: isDesktop ? 'absolute' : 'relative',
             width: 453*imageScale,
             height: 615*imageScale,
             pointerEvents: 'none',
         },
         decorationBox: {
-            position: 'absolute',
-            width: 450,
-            height: 210,
+            position: isDesktop ? 'absolute' : 'absolute',
+            width: isDesktop ? 450 : 450/mobileImageShrink,
+            height: isDesktop ? 250 : 250/mobileImageShrink,
             backgroundColor: theme2.palette.primary.main,
             border: 1,
             borderColor: theme2.palette.primary.light,
@@ -94,14 +95,14 @@ const Home = (): JSX.Element => {
     return (
         <Box sx={styles.container}>
             <Box sx={styles.innerContainer}>
-                <Navbar />
+                {isDesktop ? <Navbar /> : <Drawer />}
                 <Box sx={styles.contentContainer}>
                     <Box sx={styles.textContainer}>
                         <Typography sx={styles.helloText}>Hello, my name is</Typography>
                         <Typography sx={styles.nameText} fontStyle={'bold'}>Nathan</Typography>
                         <Typography sx={styles.andText}>And I'm a</Typography>
                         {
-                            <Box sx={{marginBottom: 50, height: 100,}}>
+                            <Box sx={{marginBottom: isDesktop ? 50 : 50, height: isDesktop ? 100 : 50,}}>
                                 <CycleText 
                                     text={thingsIAm} 
                                     duration={5000} 
@@ -113,14 +114,8 @@ const Home = (): JSX.Element => {
                         <ContactBar/>
                     </Box>
                     <Box sx={styles.imageContainer}>
-                        {/* <Float 
-                            floatStrength={20}
-                            duration={10000}
-                            style={{position: 'absolute', transform: `translateX(45px) translateY(-140px)`}}
-                            element={<Box sx={{...styles.decorationBox, height: 250, rotate: '3deg'}} />}
-                        /> */}
-                        <Box sx={{...styles.decorationBox, height: 250, transform: `translateX(45px) translateY(-140px)`, rotate: '3deg'}} />
-                        <Box sx={{...styles.decorationBox, height: 250, transform: `translateX(-65px) translateY(60px)`, rotate: '-2deg'}} />
+                        <Box sx={{...styles.decorationBox, transform: `translateX(${isDesktop ? 45 : 30}px) translateY(${isDesktop ? -140 : -60}px)`, rotate: '3deg'}} />
+                        <Box sx={{...styles.decorationBox, transform: `translateX(${isDesktop ? -65 : -35}px) translateY(${isDesktop ? 60 : 20}px)`, rotate: '-2deg'}} />
                         <Box sx={{...styles.image}} component="img" src={require('../../assets/people/meCartoon.png')} />
                     </Box>
                 </Box>
