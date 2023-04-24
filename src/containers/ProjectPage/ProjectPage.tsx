@@ -4,10 +4,17 @@ import { Box, Link, Typography } from "@mui/material";
 import Navbar from "../../components/Navbar2";
 import ContactBar from "../../components/ContactBar";
 import { useEffect, useState } from "react";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 enum Project {
     SNAIL_TRAIL = 'snail-trail',
     TIME_TO_MEET = 'time-to-meet'
+}
+
+enum NavigateType {
+    LEFT,
+    RIGHT
 }
 
 type ProjectDetails = {
@@ -20,6 +27,7 @@ type ProjectDetails = {
 const ProjectPage = (): JSX.Element => {
 
     const [projectInfo, setProjectInfo] = useState<ProjectDetails>();
+    const [mediaIndex, setMediaIndex] = useState<number>(0);
     const location = useLocation();
     const navigate = useNavigate();
     const id = location.pathname.split('/').reverse()[0];
@@ -42,8 +50,8 @@ const ProjectPage = (): JSX.Element => {
         contentContainer: {
             display: 'flex',
             flexDirection: 'column',
-            flex: 1,
-            pl: 100,
+            flex: 0.9,
+            pl: 40,
             pr: 40,
         },
         dataContainer: {
@@ -51,9 +59,9 @@ const ProjectPage = (): JSX.Element => {
             flexDirection: 'row',
         },
         pictureContainer: {
-            flex: 1,
+            flex: 1.1,
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             alignItems: 'flex-start',
             mr: 40,
         },
@@ -95,7 +103,8 @@ const ProjectPage = (): JSX.Element => {
             backgroundColor: theme2.palette.primary.main,
         },
         title: {
-            fontSize: 65,
+            fontSize: 75,
+            marginLeft: 80,
         },
         description: {
             fontSize: 20,
@@ -103,16 +112,21 @@ const ProjectPage = (): JSX.Element => {
             display: 'inline',
         },
         tag: {
-            fontSize: 20,
-        }
+            fontSize: 16,
+        },
+        arrow: {
+            fontSize: 75,
+            marginTop: '22vh',
+            color: 'black',
+        },
     };
 
     const projectMap = new Map<Project, ProjectDetails>([
         [Project.SNAIL_TRAIL, {
             title: 'Snail Trail',
             images: [
-                require('../../assets/gifs/snailTrailGameplay.gif'),
-                require('../../assets/photos/snailTrail.jpg')
+                require('../../assets/photos/snailTrail.jpg'),
+                require('../../assets/gifs/snailTrailGameplay.gif')
             ],
             description: (
                 <Typography sx={styles.description}>
@@ -163,6 +177,16 @@ const ProjectPage = (): JSX.Element => {
         }
     }, []);
 
+    const click = (type: NavigateType, media: Array<any> | undefined): void => {
+        if (media === undefined) return;
+        
+        if (type === NavigateType.LEFT) {
+            setMediaIndex(Math.max(0, mediaIndex - 1));
+        } else {
+            setMediaIndex(Math.min(media.length - 1, mediaIndex + 1));
+        }
+    }
+
     return (
         <Box sx={styles.container}>
             <Box sx={styles.innerContainer}>
@@ -171,8 +195,18 @@ const ProjectPage = (): JSX.Element => {
                     <Typography style={styles.title} fontStyle={'bold'}>{projectInfo?.title}</Typography>
                     <Box sx={styles.dataContainer}>
                         <Box sx={styles.pictureContainer}>
+                            <NavigateBeforeIcon 
+                                sx={{
+                                    ...styles.arrow,
+                                    opacity: mediaIndex > 0 ? 1 : 0.2,
+                                    ':hover': {
+                                        cursor: mediaIndex > 0 ? 'pointer' : 'inherit',
+                                    }
+                                }} 
+                                onClick={() => click(NavigateType.LEFT, projectInfo?.images)}
+                            />
                             <Box style={styles.imageWrapper}>
-                                <Box component={"img"} src={projectInfo?.images[0]} sx={styles.picture} />
+                                <Box component={"img"} src={projectInfo?.images[mediaIndex]} sx={styles.picture}/>
                                 <Box sx={styles.underPicture}>
                                     <ContactBar />
                                     <Typography style={styles.tag} fontStyle={'italic'}>
@@ -180,6 +214,16 @@ const ProjectPage = (): JSX.Element => {
                                     </Typography>
                                 </Box>
                             </Box>
+                            <NavigateNextIcon 
+                                sx={{
+                                    ...styles.arrow,
+                                    opacity: mediaIndex < (projectInfo?.images.length ?? 0) - 1 ? 1 : 0.2,
+                                    ':hover': {
+                                        cursor: mediaIndex < (projectInfo?.images.length ?? 0) - 1 ? 'pointer' : 'inherit',
+                                    }
+                                }} 
+                                onClick={() => click(NavigateType.RIGHT, projectInfo?.images)}
+                            />
                         </Box>
                         <Box sx={styles.textContainer}>
                             {projectInfo?.description}

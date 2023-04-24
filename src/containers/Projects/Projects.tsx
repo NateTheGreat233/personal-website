@@ -37,6 +37,11 @@ const Projects = (): JSX.Element => {
             pl: 100,
             pr: 100
         },
+        projects: {
+            display: 'flex',
+            flexDirection: 'row',
+            mt: 50,
+        },
         projectContainer: {
             display: 'flex',
             flexDirection: 'column',
@@ -44,6 +49,8 @@ const Projects = (): JSX.Element => {
             textAlign: 'center',
             width: 325,
             height: 200,
+            padding: 10,
+            mr: 20,
             borderColor: theme2.palette.primary.light,
             borderRadius: 5,
             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
@@ -82,28 +89,30 @@ const Projects = (): JSX.Element => {
                 <Box sx={styles.contentContainer}>
                     <Typography style={styles.title} fontStyle={'bold'}>Projects</Typography>
                     <ContactBar />
-                    {
-                        projects.map((project: ProjectInfo, _index: number) => {
-                            return (
-                                <Box 
-                                    key={`projectContainer-${project.title}`}
-                                    sx={{
-                                        ...styles.projectContainer, 
-                                        backgroundColor: project.backgroundColor,
-                                        '&:hover': {
-                                            cursor: 'pointer',
-                                        }
-                                    }}
-                                    onClick={() => {
-                                        navigate(`/projects/${project.id}`);
-                                    }}
-                                >
-                                    <Typography style={styles.projectTitle}>{project.title}</Typography>
-                                    <Typography style={styles.projectDescription} fontStyle={"italic"}>{project.description}</Typography>
-                                </Box>
-                            );
-                        })
-                    }
+                    <Box sx={styles.projects}>
+                        {
+                            projects.map((project: ProjectInfo, _index: number) => {
+                                return (
+                                    <Box 
+                                        key={`projectContainer-${project.title}`}
+                                        sx={{
+                                            ...styles.projectContainer, 
+                                            backgroundColor: project.backgroundColor,
+                                            '&:hover': {
+                                                cursor: 'pointer',
+                                            }
+                                        }}
+                                        onClick={() => {
+                                            navigate(`/projects/${project.id}`);
+                                        }}
+                                    >
+                                        <Typography style={styles.projectTitle}>{project.title}</Typography>
+                                        <Typography style={styles.projectDescription} fontStyle={"italic"}>{project.description}</Typography>
+                                    </Box>
+                                );
+                            })
+                        }
+                    </Box>
                 </Box>
             </Box>
         </Box>
