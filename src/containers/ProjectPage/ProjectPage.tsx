@@ -9,7 +9,8 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 enum Project {
     SNAIL_TRAIL = 'snail-trail',
-    TIME_TO_MEET = 'time-to-meet'
+    TIME_TO_MEET = 'time-to-meet',
+    WICKED = 'wicked!',
 }
 
 enum NavigateType {
@@ -165,7 +166,22 @@ const ProjectPage = (): JSX.Element => {
                 </Typography>
             ),
             tags: ['React', 'Typescript', 'AWS Lambda', 'DynamoDB', 'Redux', 'Web Dev']
-        }] 
+        }],
+        [Project.WICKED, {
+            title: 'Wicked!',
+            images: [
+                require('../../assets/photos/wickedGame.PNG'),
+                require('../../assets/photos/wickedFriends.jpg'),
+                require('../../assets/photos/wickedGame2.PNG'),
+                require('../../assets/photos/wickedQueue.jpg'),
+            ],
+            description: (
+                <Typography sx={styles.description}>
+                    {'Wicked! is a mobile game (designed for the App store) that I made during the summer after my freshman year of college. I was inspired by the popular games Cards Against Humanities and Evil Apples. This is easily the largest, and most complicated, project I have ever worked on. What makes this tricky compared to my previous projects is the concurrency; Multiple players must access and mutate the same data for a given game.\n\nIn the game, you are given a set of cards and a prompt. You choose the card you think is the best fit for the prompt, and once everyone has done this, the judge for the round will pick the best card (in their opinion). First player to 10 points wins the game.\n\nIt is not currently released, but I hope to finish it during this next coming summer.'}
+                </Typography>
+            ),
+            tags: ['React Native', 'Firebase', 'Redux', 'Typescript']
+        }],
     ]);
 
     useEffect(() => {

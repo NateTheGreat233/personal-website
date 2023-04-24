@@ -77,9 +77,15 @@ const Projects = (): JSX.Element => {
         {
             title: 'Time To Meet',
             description: 'Group Meeting Scheduling Service',
-            backgroundColor: '#e8deff',
+            backgroundColor: '#a7c2eb',
             id: 'time-to-meet'
-        }
+        },
+        {
+            title: 'Wicked!',
+            description: 'My first iOS game (not published yet)',
+            backgroundColor: '#c6b6f2',
+            id: 'wicked!',
+        },
     ];
 
     return (
