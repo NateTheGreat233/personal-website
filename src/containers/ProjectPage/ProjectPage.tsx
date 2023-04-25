@@ -1,11 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { theme2 } from "../../App";
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Typography, useMediaQuery } from "@mui/material";
 import Navbar from "../../components/Navbar2";
 import ContactBar from "../../components/ContactBar";
 import { useEffect, useState } from "react";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import Drawer from "../../components/Drawer2";
 
 enum Project {
     SNAIL_TRAIL = 'snail-trail',
@@ -33,6 +34,7 @@ const ProjectPage = (): JSX.Element => {
     const location = useLocation();
     const navigate = useNavigate();
     const id = location.pathname.split('/').reverse()[0];
+    const isDesktop = useMediaQuery(theme2.breakpoints.up('md'));
     
     const styles = {
         container: {
@@ -52,25 +54,27 @@ const ProjectPage = (): JSX.Element => {
         contentContainer: {
             display: 'flex',
             flexDirection: 'column',
-            flex: 0.9,
-            pl: 40,
-            pr: 40,
+            alignItems: isDesktop ? 'default' : 'center',
+            flex: 1,
+            pl: isDesktop ? 40 : 10,
+            pr: isDesktop ? 40 : 10,
         },
         dataContainer: {
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: isDesktop ? 'row' : 'column',
         },
         pictureContainer: {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-start',
-            mr: 40,
+            mr: isDesktop ? 40 : 0,
+            mt: isDesktop ? 0 : 20,
         },
         underPicture: {
             display: 'flex',
             width: '100%',
             flexDirection: 'row',
-            justifyContent: 'space-between',
+            justifyContent: isDesktop ? 'space-between' : 'flex-end',
             alignItems: 'flex-start',
         },
         textContainer: {
@@ -84,8 +88,9 @@ const ProjectPage = (): JSX.Element => {
             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
             padding: 10,
             borderRadius: 5,
-            maxHeight: '50vh',
+            maxHeight: isDesktop ? '50vh' : '40vh',
             overflowY: 'scroll',
+            mt: isDesktop ? 0 : 10,
         },
         imageWrapper: {
             flex: 1,
@@ -93,8 +98,8 @@ const ProjectPage = (): JSX.Element => {
         },  
         picture: {
             borderRadius: 5,
-            marginBottom: 20,
-            height: '50vh',
+            marginBottom: isDesktop ? 20 : 5,
+            height: isDesktop ? '50vh' : '20vh',
             width: '100%',
             pointerEvents: 'none',
             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
@@ -104,20 +109,20 @@ const ProjectPage = (): JSX.Element => {
             backgroundColor: theme2.palette.primary.main,
         },
         title: {
-            fontSize: 75,
-            marginLeft: 80,
+            fontSize: isDesktop ? 75 : 45,
+            marginLeft: isDesktop ? 80 : 0,
         },
         description: {
-            fontSize: 20,
+            fontSize: isDesktop ? 20 : 18,
             whiteSpace: 'pre-line',
             display: 'inline',
         },
         tag: {
-            fontSize: 16,
+            fontSize: isDesktop ? 16 : 10,
         },
         arrow: {
-            fontSize: 75,
-            marginTop: '22vh',
+            fontSize: isDesktop ? 75 : 35,
+            marginTop: isDesktop ? '22vh' : '8vh',
             color: 'black',
         },
     };
@@ -204,6 +209,55 @@ const ProjectPage = (): JSX.Element => {
         } else {
             setMediaIndex(Math.min(media.length - 1, mediaIndex + 1));
         }
+    }
+
+    if (!isDesktop) {
+        return (
+            <Box sx={styles.container}>
+                <Box sx={styles.innerContainer}>
+                    <Drawer />
+                    <Box sx={styles.contentContainer}>
+                        <Typography style={{...styles.title, marginBottom: 20, textAlign: 'center'}} fontStyle={'bold'}>{projectInfo?.title}</Typography>
+                        <ContactBar />
+                        <Box sx={styles.dataContainer}>
+                            <Box sx={{...styles.pictureContainer, flex: isDesktop ? (projectInfo?.landscape ? 1.1 : 0.5) : 'default'}}>
+                                <NavigateBeforeIcon 
+                                    sx={{
+                                        ...styles.arrow,
+                                        opacity: mediaIndex > 0 ? 1 : 0.2,
+                                        ':hover': {
+                                            cursor: mediaIndex > 0 ? 'pointer' : 'inherit',
+                                        }
+                                    }} 
+                                    onClick={() => click(NavigateType.LEFT, projectInfo?.images)}
+                                />
+                                <Box style={styles.imageWrapper}>
+                                    <Box component={"img"} src={projectInfo?.images[mediaIndex]} sx={styles.picture}/>
+                                    <Box sx={styles.underPicture}>
+                                        <Typography style={styles.tag} fontStyle={'italic'}>
+                                            {projectInfo?.tags.join(', ')}
+                                        </Typography>
+                                    </Box>
+                                </Box>
+                                <NavigateNextIcon 
+                                    sx={{
+                                        ...styles.arrow,
+                                        opacity: mediaIndex < (projectInfo?.images.length ?? 0) - 1 ? 1 : 0.2,
+                                        ':hover': {
+                                            cursor: mediaIndex < (projectInfo?.images.length ?? 0) - 1 ? 'pointer' : 'inherit',
+                                        }
+                                    }} 
+                                    onClick={() => click(NavigateType.RIGHT, projectInfo?.images)}
+                                />
+                            </Box>
+                            <Box sx={styles.textContainer}>
+                                {projectInfo?.description}
+                            </Box>
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+        );
     }
 
     return (

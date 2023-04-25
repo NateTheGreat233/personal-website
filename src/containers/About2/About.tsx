@@ -43,6 +43,7 @@ const About = (): JSX.Element => {
             flex: 1,
             pl: isDesktop ? 100 : 20,
             pr: isDesktop ? 100 : 20,
+            pb: isDesktop ? 0 : 15,
         },
         title: {
             fontSize: isDesktop ? 75 : 40,
@@ -87,10 +88,11 @@ const About = (): JSX.Element => {
             fontSize: 16,
         },
         mobileTextBox: {
-            flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            overflow: 'scroll',
+            overflowY: 'scroll',
+            maxHeight: 500,
+            mb: 20
         }
     };
 
@@ -110,9 +112,9 @@ const About = (): JSX.Element => {
     ];
 
     const sectionMap: Map<MobileSection, JSX.Element> = new Map([
-        [MobileSection.ME, <Typography sx={styles.text}>{`I’m a ${calculateAge()}-year-old from the San Francisco Bay Area. Growing up as the child of two software engineers in the heart of Silicon Valley, I was surrounded by technology and developed a passion for programming at a young age. Aside from my interest in tech, I also have a love for sports. I played high-level youth soccer throughout my childhood, and I still play today for my college varsity team. Additionally, I’ve recently developed an interest in climbing and traveling, which I find to be great ways to challenge myself and explore the world around me.`}</Typography>],
-        [MobileSection.EDUCATION,  <Typography sx={styles.text}>{`I started my undergraduate studies in 2021, and I’m currently a ${calculateStudentStatus()}. I’ve been really enjoying my academic experience so far, and I’ve learned a lot in a short amount of time. In addition to my academic pursuits, I’m also an active member of the campus community. I'm a part of the men’s soccer team, which allows me to continue pursuing my passion for the sport. I’m also involved in VR/AR MIT and MIT Entrepreneurship Club, where I enjoy exploring innovative ideas and networking with other like-minded individuals. Outside of my extracurricular activities, I'm currently doing research with the MIT Media Lab on time-of-flight imaging. It's an exciting opportunity to work alongside talented researchers and contribute to cutting-edge advancements in the field. Overall, I’m grateful for the opportunities that MIT has provided me, and I'm excited to see what the future holds as I continue to grow and learn.`}</Typography>],
-        [MobileSection.PORTFOLIO, <Typography sx={styles.text}>{`I made this website to showcase some of the cool things I’ve been working on outside the classroom & work experiences. I’ve always enjoyed creating side projects, and here is a place I can put them all together! Thanks for checking out the website, and if you have any questions, ideas, or just want to get in touch please reach out!`}</Typography>]
+        [MobileSection.ME, <Box><Typography sx={{...styles.headerText, mb: 20, mt: 20}}>{`Hey there! I’m Nathan.`}</Typography><Typography sx={styles.text}>{`I’m a ${calculateAge()}-year-old from the San Francisco Bay Area. Growing up as the child of two software engineers in the heart of Silicon Valley, I was surrounded by technology and developed a passion for programming at a young age. Aside from my interest in tech, I also have a love for sports. I played high-level youth soccer throughout my childhood, and I still play today for my college varsity team. Additionally, I’ve recently developed an interest in climbing and traveling, which I find to be great ways to challenge myself and explore the world around me.`}</Typography></Box>],
+        [MobileSection.EDUCATION,  <Box><Typography sx={{...styles.headerText, mb: 20, mt: 20}}>{`I’m a CS student at MIT.`}</Typography><Typography sx={styles.text}>{`I started my undergraduate studies in 2021, and I’m currently a ${calculateStudentStatus()}. I’ve been really enjoying my academic experience so far, and I’ve learned a lot in a short amount of time. In addition to my academic pursuits, I’m also an active member of the campus community. I'm a part of the men’s soccer team, which allows me to continue pursuing my passion for the sport. I’m also involved in VR/AR MIT and MIT Entrepreneurship Club, where I enjoy exploring innovative ideas and networking with other like-minded individuals. Outside of my extracurricular activities, I'm currently doing research with the MIT Media Lab on time-of-flight imaging. It's an exciting opportunity to work alongside talented researchers and contribute to cutting-edge advancements in the field. Overall, I’m grateful for the opportunities that MIT has provided me, and I'm excited to see what the future holds as I continue to grow and learn.`}</Typography></Box>],
+        [MobileSection.PORTFOLIO, <Box><Typography sx={{...styles.headerText, mb: 20, mt: 20}}>{`What’s this about?`}</Typography><Typography sx={styles.text}>{`I made this website to showcase some of the cool things I’ve been working on outside the classroom & work experiences. I’ve always enjoyed creating side projects, and here is a place I can put them all together! Thanks for checking out the website, and if you have any questions, ideas, or just want to get in touch please reach out!`}</Typography></Box>]
     ]);
 
     if (!isDesktop) {
@@ -147,6 +149,9 @@ const About = (): JSX.Element => {
                         </Box>
                         <Box sx={styles.mobileTextBox}>
                             {sectionMap.get(mobileSelected)}
+                        </Box>
+                        <Box style={{display: 'flex', width: '100%', flexDirection: 'row', justifyContent: 'flex-end'}}>
+                            <ContactBar />
                         </Box>
                     </Box>
                 </Box>

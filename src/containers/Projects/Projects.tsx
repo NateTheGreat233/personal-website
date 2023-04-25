@@ -1,8 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { theme2 } from "../../App";
 import Navbar from "../../components/Navbar2";
 import ContactBar from "../../components/ContactBar";
 import { useNavigate } from "react-router-dom";
+import Drawer from "../../components/Drawer2";
 
 type ProjectInfo = {
     title: string,
@@ -14,6 +15,7 @@ type ProjectInfo = {
 const Projects = (): JSX.Element => {
 
     const navigate = useNavigate();
+    const isDesktop = useMediaQuery(theme2.breakpoints.up('md'));
     
     const styles = {
         container: {
@@ -33,37 +35,39 @@ const Projects = (): JSX.Element => {
         contentContainer: {
             display: 'flex',
             flexDirection: 'column',
+            alignItems: isDesktop ? 'default' : 'center',
             flex: 1,
-            pl: 100,
-            pr: 100
+            pl: isDesktop ? 100 : 10,
+            pr: isDesktop ? 100 : 10,
         },
         projects: {
             display: 'flex',
-            flexDirection: 'row',
-            mt: 50,
+            flexDirection: isDesktop ? 'row' : 'column',
+            mt: isDesktop ? 50 : 30,
         },
         projectContainer: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            width: 325,
-            height: 200,
+            width: isDesktop ? 325 : 300,
+            height: isDesktop ? 200 : 150,
             padding: 10,
-            mr: 20,
+            mr: isDesktop ? 20 : 0,
+            mb: isDesktop ? 0 : 10,
             borderColor: theme2.palette.primary.light,
             borderRadius: 5,
             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
         },
         title: {
-            fontSize: 75,
+            fontSize: isDesktop ? 75 : 45,
             marginBottom: 15,
         },
         projectTitle: {
-            fontSize: 40,
+            fontSize: isDesktop ? 40 : 25,
         },  
         projectDescription: {
-            fontSize: 20,
+            fontSize: isDesktop ? 20 : 15,
         }
     };
 
@@ -87,6 +91,44 @@ const Projects = (): JSX.Element => {
             id: 'wicked!',
         },
     ];
+
+    if (!isDesktop) {
+        return (
+            <Box sx={styles.container}>
+                <Box sx={styles.innerContainer}>
+                    <Drawer />
+                    <Box sx={styles.contentContainer}>
+                        <Typography style={{...styles.title, marginBottom: 20, textAlign: 'center'}} fontStyle={'bold'}>Projects</Typography>
+                        <ContactBar />
+                        <Box sx={styles.projects}>
+                            {
+                                projects.map((project: ProjectInfo, _index: number) => {
+                                    return (
+                                        <Box 
+                                            key={`projectContainer-${project.title}`}
+                                            sx={{
+                                                ...styles.projectContainer, 
+                                                backgroundColor: project.backgroundColor,
+                                                '&:hover': {
+                                                    cursor: 'pointer',
+                                                }
+                                            }}
+                                            onClick={() => {
+                                                navigate(`/projects/${project.id}`);
+                                            }}
+                                        >
+                                            <Typography style={styles.projectTitle}>{project.title}</Typography>
+                                            <Typography style={styles.projectDescription} fontStyle={"italic"}>{project.description}</Typography>
+                                        </Box>
+                                    );
+                                })
+                            }
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+        )
+    }
 
     return (
         <Box sx={styles.container}>
